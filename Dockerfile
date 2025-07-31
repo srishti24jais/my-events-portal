@@ -1,10 +1,8 @@
-# Use OpenJDK 21 as base image to match pom.xml
-FROM openjdk:21-jdk-slim
+# Use Eclipse Temurin JDK 21 (more reliable than OpenJDK)
+FROM eclipse-temurin:21-jdk-alpine
 
 # Install necessary packages
-RUN apt-get update && apt-get install -y \
-    curl \
-    && rm -rf /var/lib/apt/lists/*
+RUN apk add --no-cache curl
 
 # Set working directory
 WORKDIR /app
@@ -19,7 +17,8 @@ RUN chmod +x mvnw
 RUN ./mvnw clean package -DskipTests
 
 # Create a non-root user
-RUN addgroup --system javauser && adduser --system --ingroup javauser javauser
+RUN addgroup -g 1001 -S javauser && \
+    adduser -S javauser -G javauser -u 1001
 
 # Change ownership of the app directory
 RUN chown -R javauser:javauser /app
