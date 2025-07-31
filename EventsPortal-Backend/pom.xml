@@ -7,7 +7,7 @@
 		  <version>3.4.4</version>
 		  <relativePath/> <!-- lookup parent from repository -->
 		 </parent>
-		 <groupId>com.ritik.EventsPortal</groupId>
+		 <groupId>com.srishti.EventsPortal</groupId>
 		 <artifactId>EventsPortal-Backend</artifactId>
 		 <version>0.0.1-SNAPSHOT</version>
 		 <name>EventsPortal-Backend</name>
