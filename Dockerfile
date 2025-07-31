@@ -9,19 +9,11 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Copy Maven wrapper and pom.xml first for better caching
-COPY EventsPortal-Backend/mvnw .
-COPY EventsPortal-Backend/.mvn .mvn
-COPY EventsPortal-Backend/pom.xml .
+# Copy the entire backend directory
+COPY EventsPortal-Backend/ .
 
 # Make mvnw executable
 RUN chmod +x mvnw
-
-# Download dependencies (this layer will be cached if pom.xml doesn't change)
-RUN ./mvnw dependency:go-offline -B
-
-# Copy source code
-COPY EventsPortal-Backend/src src
 
 # Build the application
 RUN ./mvnw clean package -DskipTests
